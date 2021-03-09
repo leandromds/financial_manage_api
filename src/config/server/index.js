@@ -1,6 +1,11 @@
 const express = require('express')
 const logger = require('../logger')
 const home = require('../../routes/home')
+const signin = require('../../routes/signin')
+
+//Middlewares
+const bodyParser = require('body-parser')
+const compress = require('compression')
 
 const defaultConfig = {
   port: 3003,
@@ -20,10 +25,14 @@ const CreateServer = (config = {}) => {
 
   const defineConfig = () => {
     app.use(endPointVersion, router)
+    app.use(bodyParser.json({ type: '*/json' }))
+    app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(compress())
   }
 
   const defineRoutes = () => {
     home.routes(router)
+    signin.routes(router)
   }
 
   const start = () => {
