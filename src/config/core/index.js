@@ -1,3 +1,4 @@
+require('dotenv').config
 const pkg = require('../../../package.json')
 const logger = require('../logger')
 const createServer = require('../server')
@@ -6,14 +7,14 @@ const createDatabase = require('../database')
 const configDefault = {
   server: {
     port: process.env.SERVER_PORT,
-    endPointVersion: '/v1/',
+    endPointVersion: process.env.ENDPOINT_VERSION,
     version: pkg.version
   },
   database: {
-    name: 'appDB',
-    url: '//localhost:27017',
-    user: 'root',
-    password: '12345'
+    name: process.env.DB_NAME,
+    url: process.env.DB_URL,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD
   }
 }
 
