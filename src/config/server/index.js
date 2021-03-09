@@ -1,11 +1,11 @@
 const express = require('express')
 const logger = require('../logger')
-const home = require('../../routes/home')
-const signin = require('../../routes/signin')
-
-//Middlewares
+// const pinoHttp = require('pino-http')({ logger })
 const bodyParser = require('body-parser')
 const compress = require('compression')
+
+const home = require('../../routes/home')
+const user = require('../../routes/user')
 
 const defaultConfig = {
   port: 3003,
@@ -24,15 +24,16 @@ const CreateServer = (config = {}) => {
   let serverInstance
 
   const defineConfig = () => {
-    app.use(endPointVersion, router)
+    // app.use(pinoHttp)
     app.use(bodyParser.json({ type: '*/json' }))
+    app.use(endPointVersion, router)
     app.use(bodyParser.urlencoded({ extended: true }))
     app.use(compress())
   }
 
   const defineRoutes = () => {
     home.routes(router)
-    signin.routes(router)
+    user.routes(router)
   }
 
   const start = () => {
