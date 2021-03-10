@@ -24,7 +24,7 @@ const createCore = () => {
 
   const start = async () => {
     try {
-      logger.info('> [CORE] Starting...')
+      logger.info('> [CORE] Starting all services')
       await server.start()
       await database.start()
       logger.info('> [CORE] Starting done! System running!')
@@ -36,7 +36,8 @@ const createCore = () => {
 
   const stop = async () => {
     try {
-      logger.info('> [CORE] Stopping...')
+      logger.info('> [CORE] Stopping all services')
+      await database.stop()
       await server.stop()
       logger.info('> [CORE] Stopping done! system off')
     } catch (error) {

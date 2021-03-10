@@ -57,10 +57,12 @@ const CreateServer = (config = {}) => {
   const stop = () => {
     return new Promise(resolve => {
       if (serverInstance) {
-        logger.info(
-          `> [SERVER] Server running on ${port}, api version: ${version} endpoint version: ${endPointVersion} was stopped`
-        )
-        return serverInstance.close(resolve)
+        return serverInstance.close(async () => {
+          logger.info(
+            `> [SERVER] Server running on ${port}, api version: ${version} endpoint version: ${endPointVersion} was stopped`
+          )
+          return resolve
+        })
       }
       return resolve()
     })
