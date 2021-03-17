@@ -6,13 +6,13 @@ const core = createCore()
 
 const shutdown = async () => {
   logger.info('Gracefully shutdown in progress')
-  core.stop()
+  await core.stop()
   process.exit(0)
 }
 
 const iniApp = async () => {
   try {
-    core.start()
+    await core.start()
   } catch (error) {
     logger.error(error)
   }

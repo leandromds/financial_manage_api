@@ -1,6 +1,11 @@
 const express = require('express')
 const logger = require('../logger')
+// const pinoHttp = require('pino-http')({ logger })
+const bodyParser = require('body-parser')
+const compress = require('compression')
+
 const home = require('../../routes/home')
+const user = require('../../routes/user')
 
 const defaultConfig = {
   port: 3003,
@@ -19,11 +24,16 @@ const CreateServer = (config = {}) => {
   let serverInstance
 
   const defineConfig = () => {
+    // app.use(pinoHttp)
+    app.use(bodyParser.json({ type: '*/json' }))
     app.use(endPointVersion, router)
+    app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(compress())
   }
 
   const defineRoutes = () => {
     home.routes(router)
+    user.routes(router)
   }
 
   const start = () => {
@@ -47,10 +57,12 @@ const CreateServer = (config = {}) => {
   const stop = () => {
     return new Promise(resolve => {
       if (serverInstance) {
-        logger.info(
-          `> [SERVER] Server running on ${port}, api version: ${version} endpoint version: ${endPointVersion} was stopped`
-        )
-        return serverInstance.close(resolve)
+        return serverInstance.close(async () => {
+          logger.info(
+            `> [SERVER] Server running on ${port}, api version: ${version} endpoint version: ${endPointVersion} was stopped`
+          )
+          return resolve
+        })
       }
       return resolve()
     })

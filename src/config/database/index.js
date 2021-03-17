@@ -29,7 +29,12 @@ const createDatabase = (config = {}) => {
   }
 
   const stop = () => {
-    logger.info('> [DATABASE] Database started was stoped with success')
+    return new Promise(resolve => {
+      if (mongoose.connection.readyState === 1) {
+        logger.info(`> [DATABASE] Database ${name} on ${url} was stoped with success`)
+        mongoose.connection.close(resolve)
+      }
+    })
   }
 
   return {

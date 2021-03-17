@@ -1,3 +1,4 @@
+require('dotenv').config
 const pkg = require('../../../package.json')
 const logger = require('../logger')
 const createServer = require('../server')
@@ -6,14 +7,14 @@ const createDatabase = require('../database')
 const configDefault = {
   server: {
     port: process.env.SERVER_PORT,
-    endPointVersion: '/v1/',
+    endPointVersion: process.env.ENDPOINT_VERSION,
     version: pkg.version
   },
   database: {
-    name: 'appDB',
-    url: '//localhost:27017',
-    user: 'root',
-    password: '12345'
+    name: process.env.DB_NAME,
+    url: process.env.DB_URL,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD
   }
 }
 
@@ -23,7 +24,7 @@ const createCore = () => {
 
   const start = async () => {
     try {
-      logger.info('> [CORE] Starting...')
+      logger.info('> [CORE] Starting all services')
       await server.start()
       await database.start()
       logger.info('> [CORE] Starting done! System running!')
@@ -35,7 +36,8 @@ const createCore = () => {
 
   const stop = async () => {
     try {
-      logger.info('> [CORE] Stopping...')
+      logger.info('> [CORE] Stopping all services')
+      await database.stop()
       await server.stop()
       logger.info('> [CORE] Stopping done! system off')
     } catch (error) {
