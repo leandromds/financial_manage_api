@@ -1,4 +1,4 @@
-const logger = require('../../../utils/logger')
+const Helpers = require('../../../helpers')
 const UserModel = require('../models/index')
 const { sign } = require('../../../utils/jwt')
 
@@ -9,25 +9,17 @@ const UserServices = (() => {
       const { password, ...user } = dbRes.toObject()
       const token = sign({ user: user.id })
 
-      logger.info({
+      return Helpers.triggerLoggerAndReturnResult({
         status: true,
         user,
         token,
         message: 'User registered with success!'
       })
-
-      return {
-        status: true,
-        user,
-        token,
-        message: 'User registered with success!'
-      }
     } catch (error) {
-      logger.error(error)
-      return {
-        status: false,
-        error
-      }
+      return Helpers.triggerLoggerAndReturnResult(
+        { status: false, error },
+        'error'
+      )
     }
   }
 
@@ -41,25 +33,17 @@ const UserServices = (() => {
       const user = await UserModel.find({ email, password })
       const token = sign({ user: user.id })
 
-      logger.info({
+      return Helpers.triggerLoggerAndReturnResult({
         status: true,
         user,
         token,
         message: 'User login with success!'
       })
-
-      return {
-        status: true,
-        user,
-        token,
-        message: 'User login with success!'
-      }
     } catch (error) {
-      logger.error(error)
-      return {
-        status: false,
-        error
-      }
+      return Helpers.triggerLoggerAndReturnResult(
+        { status: false, error },
+        'error'
+      )
     }
   }
 
