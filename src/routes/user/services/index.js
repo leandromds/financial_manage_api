@@ -1,19 +1,55 @@
-const logger = require('../../../config/logger')
+const Helpers = require('../../../helpers')
 const UserModel = require('../models/index')
 const { sign } = require('../../../utils/jwt')
 
 const UserServices = (() => {
   const register = async (userData) => {
-    const dbRes = await UserModel.create(userData)
-    const { password, ...user } = dbRes.toObject()
-    const token = sign({ user: user.id })
+    try {
+      const dbRes = await UserModel.create(userData)
+      const { password, ...user } = dbRes.toObject()
+      const token = sign({ user: user.id })
 
-    logger.info({ user, token })
-    return { user, token }
+      return Helpers.triggerLoggerAndReturnResult({
+        status: true,
+        user,
+        token,
+        message: 'User registered with success!'
+      })
+    } catch (error) {
+      return Helpers.triggerLoggerAndReturnResult(
+        { status: false, error },
+        'error'
+      )
+    }
+  }
+
+  const signin = async (authorization) => {
+    try {
+      const [, hash] = authorization.split(' ')
+      const [email, password] = Buffer.from(hash, 'base64')
+        .toString()
+        .split(':')
+
+      const user = await UserModel.find({ email, password })
+      const token = sign({ user: user.id })
+
+      return Helpers.triggerLoggerAndReturnResult({
+        status: true,
+        user,
+        token,
+        message: 'User login with success!'
+      })
+    } catch (error) {
+      return Helpers.triggerLoggerAndReturnResult(
+        { status: false, error },
+        'error'
+      )
+    }
   }
 
   return {
-    register
+    register,
+    signin
   }
 })()
 
