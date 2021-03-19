@@ -1,4 +1,4 @@
-const logger = require('../../../config/logger')
+const logger = require('../../../utils/logger')
 const UserModel = require('../models/index')
 const { sign } = require('../../../utils/jwt')
 

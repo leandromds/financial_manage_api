@@ -1,6 +1,6 @@
 require('dotenv').config
 const pkg = require('../../../package.json')
-const logger = require('../logger')
+const logger = require('../../utils/logger')
 const createServer = require('../server')
 const createDatabase = require('../database')
 

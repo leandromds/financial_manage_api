@@ -1,5 +1,5 @@
 const express = require('express')
-const logger = require('../logger')
+const logger = require('../../utils/logger')
 // const pinoHttp = require('pino-http')({ logger })
 const bodyParser = require('body-parser')
 const compress = require('compression')
