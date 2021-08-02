@@ -30,8 +30,10 @@ const UserServices = (() => {
         .toString()
         .split(':')
 
-      const user = await UserModel.find({ email, password })
-      const token = sign({ user: user.id })
+      const [ user ] = await UserModel.find({ email, password })
+      const token = sign({ 
+        user: user.id
+      })
 
       return Helpers.triggerLoggerAndReturnResult({
         status: true,
@@ -47,9 +49,18 @@ const UserServices = (() => {
     }
   }
 
+  const me = async (user) => {
+    return Helpers.triggerLoggerAndReturnResult({
+      status: true,
+      user,
+      message: 'User exists'
+    })
+  }
+
   return {
     register,
-    signin
+    signin,
+    me
   }
 })()
 
