@@ -1,16 +1,14 @@
 const Helpers = require('../../../helpers')
 const ExpensesModel = require('../model')
 const UserModel = require('../../user/models')
-const { sign } = require('../../../utils/jwt')
 
 const ExpensesServices = (() => {
-  const getAllExpenses = async (userId) => {
+  const getAllExpenses = async userId => {
     try {
-      const expenses = await UserModel.findById(userId)
-      .populate({ 
+      const expenses = await UserModel.findById(userId).populate({
         path: 'expenses',
         select: 'title category type value date'
-       })
+      })
       console.log('expenses', expenses)
       return Helpers.triggerLoggerAndReturnResult({
         status: true,
@@ -18,7 +16,7 @@ const ExpensesServices = (() => {
       })
     } catch (error) {
       return Helpers.triggerLoggerAndReturnResult(
-        { 
+        {
           status: false,
           error: error.message
         },
@@ -27,7 +25,7 @@ const ExpensesServices = (() => {
     }
   }
 
-  const addNewExpense = async (newExpense) => {
+  const addNewExpense = async newExpense => {
     try {
       const expense = await ExpensesModel.create(newExpense)
       return Helpers.triggerLoggerAndReturnResult({
@@ -37,7 +35,7 @@ const ExpensesServices = (() => {
       })
     } catch (error) {
       return Helpers.triggerLoggerAndReturnResult(
-        { 
+        {
           status: false,
           error: error.message
         },
@@ -46,7 +44,7 @@ const ExpensesServices = (() => {
     }
   }
 
-  const updateExpense = async (expense) => {
+  const updateExpense = async expense => {
     const options = { new: true }
     const callback = (err, doc) => {
       if (err) throw err
@@ -54,9 +52,14 @@ const ExpensesServices = (() => {
     }
 
     try {
-      const { id, ...data } = expense 
-      const updatedExpense = await ExpensesModel.findByIdAndUpdate(id, data, options, callback)
-      
+      const { id, ...data } = expense
+      const updatedExpense = await ExpensesModel.findByIdAndUpdate(
+        id,
+        data,
+        options,
+        callback
+      )
+
       return Helpers.triggerLoggerAndReturnResult({
         status: true,
         expense: updatedExpense,
@@ -64,7 +67,7 @@ const ExpensesServices = (() => {
       })
     } catch (error) {
       return Helpers.triggerLoggerAndReturnResult(
-        { 
+        {
           status: false,
           error: error.message
         },
@@ -73,7 +76,7 @@ const ExpensesServices = (() => {
     }
   }
 
-  const deleteExpense = async (expenseId) => {
+  const deleteExpense = async expenseId => {
     try {
       const expenseDelete = await ExpensesModel.findByIdAndDelete(expenseId)
       return Helpers.triggerLoggerAndReturnResult({
@@ -83,7 +86,7 @@ const ExpensesServices = (() => {
       })
     } catch (error) {
       return Helpers.triggerLoggerAndReturnResult(
-        { 
+        {
           status: false,
           error: error.message
         },

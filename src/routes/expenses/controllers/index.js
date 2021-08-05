@@ -1,4 +1,3 @@
-const logger = require('../../../utils/logger')
 const ExpensesServices = require('../services')
 
 const ExpensesController = (() => {
@@ -6,18 +5,18 @@ const ExpensesController = (() => {
     try {
       const userId = req.auth._id
       const result = await ExpensesServices.getAllExpenses(userId)
-      res.status(200).send({...result})
+      res.status(200).send({ ...result })
     } catch (error) {
-      res.status(500).send({ message: 'Internal Server Error'})
+      res.status(500).send({ message: 'Internal Server Error' })
     }
   }
 
   const addNewExpense = async (req, res) => {
     try {
       const { auth, body: expense } = req
-      expense.user = auth._id 
+      expense.user = auth._id
       const result = await ExpensesServices.addNewExpense(expense)
-      res.status(200).send({...result})
+      res.status(200).send({ ...result })
     } catch (error) {
       res.sendStatus(500)
     }

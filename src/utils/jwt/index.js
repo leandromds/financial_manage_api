@@ -11,17 +11,17 @@ const sign = payload => jwt.sign(payload, secret, option)
 const verify = token => jwt.verify(token, secret)
 
 const auth = async (req, res, next) => {
-  if(!req.headers?.authorization) return res.sendStatus(401)
+  if (!req.headers?.authorization) return res.sendStatus(401)
 
   try {
-    const [,token] = req.headers.authorization.split(' ')
+    const [, token] = req.headers.authorization.split(' ')
     const payload = await verify(token)
     const user = await UserModel.findById(payload.user)
 
     if (!user) return res.sendStatus(401)
 
     req.auth = user
-    
+
     next()
   } catch (error) {
     logger.error(error)
