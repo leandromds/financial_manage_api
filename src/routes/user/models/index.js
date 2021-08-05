@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
+const { Schema } = require('mongoose')
 const crypto = require('crypto')
 
-const UserSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     userName: {
       type: String
@@ -30,4 +31,13 @@ const UserSchema = new mongoose.Schema(
   }
 )
 
-module.exports = mongoose.model('UserModel', UserSchema)
+userSchema.virtual('expenses', {
+  ref: 'ExpensesModel',
+  localField: '_id',
+  foreignField: 'user'
+})
+
+userSchema.set('toObject', { virtuals: true })
+userSchema.set('toJson', { virtuals: true })
+
+module.exports = mongoose.model('UserModel', userSchema)
