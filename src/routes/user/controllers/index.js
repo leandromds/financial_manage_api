@@ -16,7 +16,10 @@ const UserController = (() => {
       })
     } catch (error) {
       logger.error(error)
-      return res.status(500).send({ status: false, message: 'Deu merda aqui' })
+      return res.status(401).send({ 
+        status: false,
+        message: error.message
+      })
     }
   }
 
