@@ -38,6 +38,17 @@ const CreateServer = (config = {}) => {
     expenses.routes(router)
   }
 
+  const test = () => {
+    try {
+      defineRoutes()
+      defineConfig()
+    } catch (error) {
+      return error
+    } finally {
+      return app
+    }
+  }
+
   const start = () => {
     return new Promise((resolve, reject) => {
       try {
@@ -71,6 +82,7 @@ const CreateServer = (config = {}) => {
   }
 
   return {
+    test,
     start,
     stop
   }
