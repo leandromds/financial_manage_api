@@ -1,4 +1,4 @@
-const createCore = require('../src/config/core')
+const createCore = require('../../src/config/core')
 
 describe('Testing the core application', () => {
   test('Should exists', () => {

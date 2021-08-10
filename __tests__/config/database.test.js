@@ -1,4 +1,4 @@
-const createDatabase = require('../src/config/database')
+const createDatabase = require('../../src/config/database')
 
 describe('Testing the database application ', () => {
   test('Should exists', () => {
