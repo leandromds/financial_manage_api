@@ -13,5 +13,5 @@ module.exports = {
   },
   moduleDirectories: ['node_modules', 'src'],
   testEnvironment: 'node',
-  testPathIgnorePatterns: ['/node_modules/', '.github', '.vscode']
+  testPathIgnorePatterns: ['/node_modules/', '.github', '.vscode', 'instances']
 }
