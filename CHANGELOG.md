@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Create expense routers, controller, service and schema
 - Add a github template file
 - Add a router to validate the user token
+- Remove all tests
 
 ## [0.0.5] - 2021-02-25
 
