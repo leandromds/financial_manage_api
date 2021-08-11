@@ -3,7 +3,7 @@ const UserModel = require('../models/index')
 const { sign } = require('../../../utils/jwt')
 
 const UserServices = (() => {
-  const register = async (userData) => {
+  const register = async userData => {
     try {
       const dbRes = await UserModel.create(userData)
       const { password, ...user } = dbRes.toObject()
@@ -23,15 +23,17 @@ const UserServices = (() => {
     }
   }
 
-  const signin = async (authorization) => {
+  const signin = async authorization => {
     try {
       const [, hash] = authorization.split(' ')
       const [email, password] = Buffer.from(hash, 'base64')
         .toString()
         .split(':')
 
-      const user = await UserModel.find({ email, password })
-      const token = sign({ user: user.id })
+      const [user] = await UserModel.find({ email, password })
+      const token = sign({
+        user: user.id
+      })
 
       return Helpers.triggerLoggerAndReturnResult({
         status: true,
@@ -47,9 +49,18 @@ const UserServices = (() => {
     }
   }
 
+  const me = async user => {
+    return Helpers.triggerLoggerAndReturnResult({
+      status: true,
+      user,
+      message: 'User exists'
+    })
+  }
+
   return {
     register,
-    signin
+    signin,
+    me
   }
 })()
 

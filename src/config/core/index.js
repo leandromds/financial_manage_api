@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-expressions
 require('dotenv').config
 const pkg = require('../../../package.json')
 const logger = require('../../utils/logger')

@@ -1,2 +1,10 @@
+# Ignore folders
 node_modules
 jest.config
+.vscode
+.github
+build
+coverage
+
+# Ignore files
+*.md

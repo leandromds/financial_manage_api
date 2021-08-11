@@ -5,12 +5,9 @@ const UserController = (() => {
   const register = async (req, res) => {
     try {
       const userData = req.body
-      const {
-        status,
-        user,
-        token,
-        message
-      } = await UserServices.register(userData)
+      const { status, user, token, message } = await UserServices.register(
+        userData
+      )
       res.status(201).send({
         status,
         message,
@@ -19,7 +16,10 @@ const UserController = (() => {
       })
     } catch (error) {
       logger.error(error)
-      return res.status(500).send({ status: false, message: 'Deu merda aqui' })
+      return res.status(401).send({ 
+        status: false,
+        message: error.message
+      })
     }
   }
 
@@ -29,13 +29,30 @@ const UserController = (() => {
       res.status(200).send(result)
     } catch (error) {
       logger.error(error)
-      return res.status(500).send({ status: false, message: 'Deu merda aqui' })
+      return res.status(500).send({
+        status: false,
+        message: 'Username or Password Invalid'
+      })
+    }
+  }
+
+  const me = async (req, res) => {
+    try {
+      const result = await UserServices.me(req.auth)
+      res.status(200).send(result)
+    } catch (error) {
+      logger.error(error)
+      return res.status(500).send({
+        status: false,
+        message: 'Username or Password Invalid'
+      })
     }
   }
 
   return {
     register,
-    signin
+    signin,
+    me
   }
 })()
 
