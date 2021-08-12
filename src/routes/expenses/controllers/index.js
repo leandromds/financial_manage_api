@@ -16,7 +16,7 @@ const ExpensesController = (() => {
       const { auth, body: expense } = req
       expense.user = auth._id
       const result = await ExpensesServices.addNewExpense(expense)
-      res.status(200).send({ ...result })
+      res.status(201).send({ ...result })
     } catch (error) {
       res.sendStatus(500)
     }
