@@ -9,7 +9,6 @@ const ExpensesServices = (() => {
         path: 'expenses',
         select: 'title category type value date'
       })
-      console.log('expenses', expenses)
       return Helpers.triggerLoggerAndReturnResult({
         status: true,
         expenses: expenses.expenses
