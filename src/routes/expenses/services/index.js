@@ -45,18 +45,18 @@ const ExpensesServices = (() => {
 
   const updateExpense = async expense => {
     const options = { new: true }
-    const callback = (err, doc) => {
+    const getUpdatedExpense = (err, doc) => {
       if (err) throw err
       return doc
     }
 
     try {
-      const { id, ...data } = expense
+      const { id, ...newData } = expense
       const updatedExpense = await ExpensesModel.findByIdAndUpdate(
         id,
-        data,
+        newData,
         options,
-        callback
+        getUpdatedExpense
       )
 
       return Helpers.triggerLoggerAndReturnResult({
@@ -77,10 +77,10 @@ const ExpensesServices = (() => {
 
   const deleteExpense = async expenseId => {
     try {
-      const expenseDelete = await ExpensesModel.findByIdAndDelete(expenseId)
+      const expenseDeleted = await ExpensesModel.findByIdAndDelete(expenseId)
       return Helpers.triggerLoggerAndReturnResult({
         status: true,
-        expense: expenseDelete,
+        expense: expenseDeleted,
         message: 'Expense was deleted with success!'
       })
     } catch (error) {

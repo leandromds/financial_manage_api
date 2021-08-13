@@ -33,7 +33,7 @@ const ExpensesController = (() => {
         },
         'error'
       )
-      res.sendStatus(500)
+      res.status(500).send({ message: 'Internal Server Error' })
     }
   }
 
@@ -49,7 +49,7 @@ const ExpensesController = (() => {
         },
         'error'
       )
-      res.sendStatus(500)
+      res.status(500).send({ message: 'Internal Server Error' })
     }
   }
 
@@ -66,7 +66,7 @@ const ExpensesController = (() => {
         },
         'error'
       )
-      res.sendStatus(500)
+      res.status(500).send({ message: 'Internal Server Error' })
     }
   }
 
