@@ -17,7 +17,10 @@ const UserServices = (() => {
       })
     } catch (error) {
       return Helpers.triggerLoggerAndReturnResult(
-        { status: false, error },
+        {
+          status: false,
+          error: error.message
+        },
         'error'
       )
     }
@@ -31,6 +34,9 @@ const UserServices = (() => {
         .split(':')
 
       const [user] = await UserModel.find({ email, password })
+
+      if (!user) throw { message: 'User or email invalid.' }
+
       const token = sign({
         user: user.id
       })
@@ -43,7 +49,10 @@ const UserServices = (() => {
       })
     } catch (error) {
       return Helpers.triggerLoggerAndReturnResult(
-        { status: false, error },
+        {
+          status: false,
+          error: error.message
+        },
         'error'
       )
     }
@@ -57,10 +66,35 @@ const UserServices = (() => {
     })
   }
 
+  const forgotPassword = async userEmail => {
+    try {
+      const [, hash] = userEmail.split(' ')
+      const [email] = Buffer.from(hash, 'base64').toString().split(':')
+      const validateEmail = await UserModel.findOne({ email })
+
+      if (!validateEmail) throw { message: 'Email not registered' }
+
+      return Helpers.triggerLoggerAndReturnResult({
+        status: true,
+        data: validateEmail,
+        message: 'A email will be send to you to reset your email!'
+      })
+    } catch (error) {
+      return Helpers.triggerLoggerAndReturnResult(
+        {
+          status: false,
+          error: error.message
+        },
+        'error'
+      )
+    }
+  }
+
   return {
     register,
     signin,
-    me
+    me,
+    forgotPassword
   }
 })()
 

@@ -1,4 +1,4 @@
-const logger = require('../logger')
+const Helpers = require('../../helpers')
 const jwt = require('jsonwebtoken')
 const secret = process.env.JWT_SECRET
 const option = {
@@ -48,7 +48,13 @@ const auth = async (req, res, next) => {
 
     next()
   } catch (error) {
-    logger.error(error)
+    Helpers.triggerLoggerAndReturnResult(
+      {
+        status: false,
+        error: error.message
+      },
+      'error'
+    )
     return res.status(401).send(errorMessage)
   }
 }

@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-expressions
 require('dotenv').config
 const pkg = require('../../../package.json')
-const logger = require('../../utils/logger')
+const Helpers = require('../../helpers')
 const createServer = require('../server')
 const createDatabase = require('../database')
 
@@ -25,25 +25,29 @@ const createCore = () => {
 
   const start = async () => {
     try {
-      logger.info('> [CORE] Starting all services')
+      Helpers.triggerLoggerAndReturnResult('> [CORE] Starting all services')
       await server.start()
       await database.start()
-      logger.info('> [CORE] Starting done! System running!')
+      Helpers.triggerLoggerAndReturnResult('> [CORE] Starting done! System running!')
     } catch (error) {
-      logger.error('> [CORE] An error occurred during system initialization')
-      logger.error(error)
+      Helpers.triggerLoggerAndReturnResult(
+        `> [CORE] An error occurred during system initialization\n reason: ${error}`,
+        'error'
+      )
     }
   }
 
   const stop = async () => {
     try {
-      logger.info('> [CORE] Stopping all services')
+      Helpers.triggerLoggerAndReturnResult('> [CORE] Stopping all services')
       await database.stop()
       await server.stop()
-      logger.info('> [CORE] Stopping done! system off')
+      Helpers.triggerLoggerAndReturnResult('> [CORE] Stopping done! system off')
     } catch (error) {
-      logger.error('> [CORE] An error occurred during system initialization')
-      logger.error(error)
+      Helpers.triggerLoggerAndReturnResult(
+        `> [CORE] An error occurred during system initialization\n reason: ${error}`,
+        'error'
+      )
     }
   }
 

@@ -1,9 +1,14 @@
-const logger = require('../utils/logger')
+const pino = require('pino')({
+  prettyPrint: {
+    levelFirst: true,
+    colorize: true
+  }
+})
 
 const Helpers = (() => {
   const triggerLoggerAndReturnResult = (data, typeOfLog = 'info') => {
-    if (typeOfLog === 'info') logger.info(data)
-    if (typeOfLog === 'error') logger.error(data)
+    if (typeOfLog === 'info') pino.info(data)
+    if (typeOfLog === 'error') pino.error(data)
     return data
   }
 
