@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { sign, verify, auth } = require('../utils/jwt')
+const { sign, verify } = require('../utils/jwt')
 
 const user = {
   name: 'tester',

@@ -44,10 +44,9 @@ const CreateServer = (config = {}) => {
     try {
       defineRoutes()
       defineConfig()
+      return app
     } catch (error) {
       return error
-    } finally {
-      return app
     }
   }
 

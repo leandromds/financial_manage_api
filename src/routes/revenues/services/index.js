@@ -51,7 +51,7 @@ const RevenuesServices = (() => {
     }
 
     try {
-      const {id, ...newData} = revenue
+      const { id, ...newData } = revenue
       const updatedRevenue = await RevenuesModel.findByIdAndUpdate(
         id,
         newData,
@@ -64,7 +64,13 @@ const RevenuesServices = (() => {
         message: 'Revenue updated with success!'
       })
     } catch (error) {
-      
+      return Helpers.triggerLoggerAndReturnResult(
+        {
+          status: false,
+          error: error.message
+        },
+        'error'
+      )
     }
   }
 
