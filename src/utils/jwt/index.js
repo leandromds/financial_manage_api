@@ -28,7 +28,7 @@ const auth = async (req, res, next) => {
   try {
     const [, token] = req.headers.authorization.split(' ')
 
-    if(!token) return res.status(403).send(errorMessage)
+    if (!token) return res.status(403).send(errorMessage)
 
     const payload = await verify(token)
 
@@ -39,11 +39,11 @@ const auth = async (req, res, next) => {
 
     const user = await UserModel.findById(payload.user)
 
-    if(!user.email) {
+    if (!user.email) {
       errorMessage.message = 'Authentication error. User not registered.'
       return res.status(401).send(errorMessage)
-    } 
-    
+    }
+
     req.auth = user
 
     next()

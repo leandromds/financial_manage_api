@@ -1,11 +1,11 @@
 const Helpers = require('../../../helpers')
-const ExpensesServices = require('../services')
+const RevenuesServices = require('../services')
 
-const ExpensesController = (() => {
-  const getAllExpenses = async (req, res) => {
+const RevenuesController = (() => {
+  const getAllRevenues = async (req, res) => {
     try {
       const userId = req.auth._id
-      const result = await ExpensesServices.getAllExpenses(userId)
+      const result = await RevenuesServices.getAllRevenues(userId)
       res.status(200).send({ ...result })
     } catch (error) {
       Helpers.triggerLoggerAndReturnResult(
@@ -19,11 +19,11 @@ const ExpensesController = (() => {
     }
   }
 
-  const addNewExpense = async (req, res) => {
+  const addNewRevenue = async (req, res) => {
     try {
-      const { auth, body: expense } = req
-      expense.user = auth._id
-      const result = await ExpensesServices.addNewExpense(expense)
+      const { auth, body: newRevenue } = req
+      newRevenue.user = auth._id
+      const result = await RevenuesServices.addNewRevenue(newRevenue)
       res.status(201).send({ ...result })
     } catch (error) {
       Helpers.triggerLoggerAndReturnResult(
@@ -37,9 +37,9 @@ const ExpensesController = (() => {
     }
   }
 
-  const updateExpense = async (req, res) => {
+  const updateRevenue = async (req, res) => {
     try {
-      const result = await ExpensesServices.updateExpense(req.body)
+      const result = await RevenuesServices.updateRevenue(req.body)
       res.status(201).send({ ...result })
     } catch (error) {
       Helpers.triggerLoggerAndReturnResult(
@@ -53,10 +53,10 @@ const ExpensesController = (() => {
     }
   }
 
-  const deleteExpense = async (req, res) => {
+  const deleteRevenue = async (req, res) => {
     try {
-      const expenseId = req.body.id
-      const result = await ExpensesServices.deleteExpense(expenseId)
+      const revenueId = req.body.id
+      const result = await RevenuesServices.deleteRevenue(revenueId)
       res.status(201).send({ ...result })
     } catch (error) {
       Helpers.triggerLoggerAndReturnResult(
@@ -71,11 +71,11 @@ const ExpensesController = (() => {
   }
 
   return {
-    getAllExpenses,
-    addNewExpense,
-    updateExpense,
-    deleteExpense
+    getAllRevenues,
+    addNewRevenue,
+    updateRevenue,
+    deleteRevenue
   }
 })()
 
-module.exports = ExpensesController
+module.exports = RevenuesController

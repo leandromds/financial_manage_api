@@ -1,17 +1,17 @@
 const Helpers = require('../../../helpers')
-const ExpensesModel = require('../model')
+const RevenuesModel = require('../models')
 const UserModel = require('../../user/models')
 
-const ExpensesServices = (() => {
-  const getAllExpenses = async userId => {
+const RevenuesServices = (() => {
+  const getAllRevenues = async userId => {
     try {
-      const expenses = await UserModel.findById(userId).populate({
-        path: 'expenses',
-        select: 'title category type value date'
+      const revenues = await UserModel.findById(userId).populate({
+        path: 'revenues',
+        select: 'title recurrence value date'
       })
       return Helpers.triggerLoggerAndReturnResult({
         status: true,
-        expenses: expenses.expenses
+        revenues: revenues.revenues
       })
     } catch (error) {
       return Helpers.triggerLoggerAndReturnResult(
@@ -24,13 +24,13 @@ const ExpensesServices = (() => {
     }
   }
 
-  const addNewExpense = async newExpense => {
+  const addNewRevenue = async newRevenue => {
     try {
-      const expense = await ExpensesModel.create(newExpense)
+      const revenue = await RevenuesModel.create(newRevenue)
       return Helpers.triggerLoggerAndReturnResult({
         status: true,
-        expense,
-        message: 'Expense registered with success!'
+        revenue,
+        message: 'Revenue registered with success!'
       })
     } catch (error) {
       return Helpers.triggerLoggerAndReturnResult(
@@ -43,26 +43,25 @@ const ExpensesServices = (() => {
     }
   }
 
-  const updateExpense = async expense => {
+  const updateRevenue = async revenue => {
     const options = { new: true }
-    const getUpdatedExpense = (err, doc) => {
+    const getUpdatedRevenue = (err, doc) => {
       if (err) throw err
       return doc
     }
 
     try {
-      const { id, ...newData } = expense
-      const updatedExpense = await ExpensesModel.findByIdAndUpdate(
+      const { id, ...newData } = revenue
+      const updatedRevenue = await RevenuesModel.findByIdAndUpdate(
         id,
         newData,
         options,
-        getUpdatedExpense
+        getUpdatedRevenue
       )
-
       return Helpers.triggerLoggerAndReturnResult({
         status: true,
-        expense: updatedExpense,
-        message: 'Expense updated with success!'
+        revenue: updatedRevenue,
+        message: 'Revenue updated with success!'
       })
     } catch (error) {
       return Helpers.triggerLoggerAndReturnResult(
@@ -75,13 +74,13 @@ const ExpensesServices = (() => {
     }
   }
 
-  const deleteExpense = async expenseId => {
+  const deleteRevenue = async revenueId => {
     try {
-      const expenseDeleted = await ExpensesModel.findByIdAndDelete(expenseId)
+      const revenueDeleted = await RevenuesModel.findByIdAndDelete(revenueId)
       return Helpers.triggerLoggerAndReturnResult({
         status: true,
-        expense: expenseDeleted,
-        message: 'Expense was deleted with success!'
+        expense: revenueDeleted,
+        message: 'Revenue was deleted with success!'
       })
     } catch (error) {
       return Helpers.triggerLoggerAndReturnResult(
@@ -95,11 +94,11 @@ const ExpensesServices = (() => {
   }
 
   return {
-    getAllExpenses,
-    addNewExpense,
-    updateExpense,
-    deleteExpense
+    getAllRevenues,
+    addNewRevenue,
+    updateRevenue,
+    deleteRevenue
   }
 })()
 
-module.exports = ExpensesServices
+module.exports = RevenuesServices

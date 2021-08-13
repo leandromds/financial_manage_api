@@ -16,7 +16,7 @@ const UserController = (() => {
       })
     } catch (error) {
       logger.error(error)
-      return res.status(401).send({ 
+      return res.status(401).send({
         status: false,
         message: error.message
       })

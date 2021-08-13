@@ -9,7 +9,7 @@ const configServer = {
 }
 
 const httpServer = (() => {
-  const server  = createServer(configServer).test
+  const server = createServer(configServer).test
   return server
 })()
 

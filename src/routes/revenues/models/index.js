@@ -1,17 +1,13 @@
 const mongoose = require('mongoose')
 const { Schema } = require('mongoose')
 
-const ExpensesSchema = new mongoose.Schema(
+const RevenuesSchema = new mongoose.Schema(
   {
     title: {
       type: String,
       required: true
     },
-    category: {
-      type: String,
-      required: true
-    },
-    type: {
+    Recurrence: {
       type: String,
       required: true
     },
@@ -30,11 +26,11 @@ const ExpensesSchema = new mongoose.Schema(
     }
   },
   {
-    collection: 'Expenses',
+    collection: 'Revenues',
     timestamps: true,
     toJSON: { virtuals: true, getters: true },
     toObject: { virtuals: true, getters: true }
   }
 )
 
-module.exports = mongoose.model('ExpensesModel', ExpensesSchema)
+module.exports = mongoose.model('RevenuesModel', RevenuesSchema)

@@ -7,6 +7,7 @@ const compress = require('compression')
 const home = require('../../routes/home')
 const user = require('../../routes/user')
 const expenses = require('../../routes/expenses')
+const revenues = require('../../routes/revenues')
 
 const defaultConfig = {
   port: 3003,
@@ -36,16 +37,16 @@ const CreateServer = (config = {}) => {
     home.routes(router)
     user.routes(router)
     expenses.routes(router)
+    revenues.routes(router)
   }
 
   const test = () => {
     try {
       defineRoutes()
       defineConfig()
+      return app
     } catch (error) {
       return error
-    } finally {
-      return app
     }
   }
 

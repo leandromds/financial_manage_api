@@ -36,6 +36,12 @@ userSchema.virtual('expenses', {
   foreignField: 'user'
 })
 
+userSchema.virtual('revenues', {
+  ref: 'RevenuesModel',
+  localField: '_id',
+  foreignField: 'user'
+})
+
 userSchema.set('toObject', { virtuals: true })
 userSchema.set('toJson', { virtuals: true })
 
