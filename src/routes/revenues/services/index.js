@@ -43,9 +43,55 @@ const RevenuesServices = (() => {
     }
   }
 
+  const updateRevenue = async revenue => {
+    const options = { new: true }
+    const getUpdatedRevenue = (err, doc) => {
+      if (err) throw err
+      return doc
+    }
+
+    try {
+      const {id, ...newData} = revenue
+      const updatedRevenue = await RevenuesModel.findByIdAndUpdate(
+        id,
+        newData,
+        options,
+        getUpdatedRevenue
+      )
+      return Helpers.triggerLoggerAndReturnResult({
+        status: true,
+        revenue: updatedRevenue,
+        message: 'Revenue updated with success!'
+      })
+    } catch (error) {
+      
+    }
+  }
+
+  const deleteRevenue = async revenueId => {
+    try {
+      const revenueDeleted = await RevenuesModel.findByIdAndDelete(revenueId)
+      return Helpers.triggerLoggerAndReturnResult({
+        status: true,
+        expense: revenueDeleted,
+        message: 'Revenue was deleted with success!'
+      })
+    } catch (error) {
+      return Helpers.triggerLoggerAndReturnResult(
+        {
+          status: false,
+          error: error.message
+        },
+        'error'
+      )
+    }
+  }
+
   return {
     getAllRevenues,
-    addNewRevenue
+    addNewRevenue,
+    updateRevenue,
+    deleteRevenue
   }
 })()
 
