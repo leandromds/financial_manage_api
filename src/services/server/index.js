@@ -1,5 +1,5 @@
 const express = require('express')
-const logger = require('../../utils/logger')
+const Helpers = require('../../helpers')
 // const pinoHttp = require('pino-http')({ logger })
 const bodyParser = require('body-parser')
 const compress = require('compression')
@@ -27,9 +27,8 @@ const CreateServer = (config = {}) => {
 
   const defineConfig = () => {
     // app.use(pinoHttp)
-    app.use(bodyParser.json({ type: '*/json' }))
+    app.use(express.json())
     app.use(endPointVersion, router)
-    app.use(bodyParser.urlencoded({ extended: true }))
     app.use(compress())
   }
 
@@ -57,7 +56,7 @@ const CreateServer = (config = {}) => {
         defineConfig()
 
         serverInstance = app.listen(port, () => {
-          logger.info(
+          Helpers.triggerLoggerAndReturnResult(
             `> [SERVER] Server started on ${port}, api version: ${version} endpoint version: ${endPointVersion}`
           )
           return resolve(app)
@@ -72,8 +71,8 @@ const CreateServer = (config = {}) => {
     return new Promise(resolve => {
       if (serverInstance) {
         return serverInstance.close(async () => {
-          logger.info(
-            `> [SERVER] Server running on ${port}, api version: ${version} endpoint version: ${endPointVersion} was stopped`
+          Helpers.triggerLoggerAndReturnResult(
+            `> [SERVER] Server started on ${port}, api version: ${version} endpoint version: ${endPointVersion} was stopped`
           )
           return resolve
         })

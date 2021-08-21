@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const logger = require('../../utils/logger')
+const Helpers = require('../../helpers')
 
 const defaultConfig = {
   name: 'appDB',
@@ -23,17 +23,15 @@ const createDatabase = (config = {}) => {
         useFindAndModify: false
       })
       .then(() =>
-        logger.info(`> [DATABASE] the database ${name} starting on ${url}!`)
+        Helpers.triggerLoggerAndReturnResult(`> [DATABASE] the database ${name} starting on ${url}!`)
       )
-      .catch(error => logger.info(`> [DATABASE] Failed error: ${error}!`))
+      .catch(error => Helpers.triggerLoggerAndReturnResult(`> [DATABASE] Failed error: ${error}!`, 'error'))
   }
 
   const stop = () => {
     return new Promise(resolve => {
       if (mongoose.connection.readyState === 1) {
-        logger.info(
-          `> [DATABASE] Database ${name} on ${url} was stoped with success`
-        )
+        Helpers.triggerLoggerAndReturnResult(`> [DATABASE] Database ${name} on ${url} was stoped with success`)
         mongoose.connection.close(resolve)
       }
     })
