@@ -20,6 +20,14 @@ const userSchema = new mongoose.Schema(
           .createHash('md5')
           .update(value)
           .digest('hex')
+    },
+    passwordResetToken: {
+      type: String,
+      select: false,
+    },
+    passwordResetExpires: {
+      type: Date,
+      select:false
     }
   },
   {

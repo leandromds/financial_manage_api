@@ -71,11 +71,33 @@ const UserController = (() => {
     }
   }
 
+  const resetPassword = async (req, res) => {
+    try {
+      const data = {
+        userId: req.params.userId,
+        token: req.params.token,
+        password: req.body.password
+      }
+      const {status, message} = await UserServices.resetPassword(data)
+      res.status(200).send({ status, message }) 
+    } catch (error) {
+      Helpers.triggerLoggerAndReturnResult(
+        {
+          status: false,
+          error: error.message
+        },
+        'error'
+      )
+      res.status(500).send({ message: 'Internal Server Error' })
+    }
+  }
+
   return {
     register,
     signin,
     me,
-    forgotPassword
+    forgotPassword,
+    resetPassword
   }
 })()
 
