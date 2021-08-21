@@ -27,9 +27,8 @@ const CreateServer = (config = {}) => {
 
   const defineConfig = () => {
     // app.use(pinoHttp)
-    app.use(bodyParser.json({ type: '*/json' }))
+    app.use(express.json())
     app.use(endPointVersion, router)
-    app.use(bodyParser.urlencoded({ extended: true }))
     app.use(compress())
   }
 

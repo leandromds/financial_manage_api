@@ -1,6 +1,6 @@
 require('dotenv').config()
 const Helpers = require('./helpers')
-const createCore = require('./config/core')
+const createCore = require('./services/core')
 
 const core = createCore()
 
