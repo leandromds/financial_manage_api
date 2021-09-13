@@ -1,7 +1,7 @@
 {
   "name": "financial_manager",
   "version": "0.3.0",
-  "description": "",
+  "description": "This is a restAPI to management a personal financial",
   "main": "index.js",
   "scripts": {
     "lint": "prettier-standard --lint --check",
