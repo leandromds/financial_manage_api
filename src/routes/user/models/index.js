@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema(
     },
     passwordResetExpires: {
       type: Date,
-      select:false
+      select: false
     }
   },
   {
@@ -46,6 +46,12 @@ userSchema.virtual('expenses', {
 
 userSchema.virtual('revenues', {
   ref: 'RevenuesModel',
+  localField: '_id',
+  foreignField: 'user'
+})
+
+userSchema.virtual('budget', {
+  ref: 'BudgetModel',
   localField: '_id',
   foreignField: 'user'
 })

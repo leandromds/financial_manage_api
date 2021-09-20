@@ -10,15 +10,3 @@ const routes = router => {
 }
 
 module.exports = { routes }
-
-
-// (req, res) => {
-//   res.status(200).send({ 
-//     message: 'issa',
-//     data: {
-//       user: req.params.userId,
-//       token: req.params.token,
-//       newPass: req.body.password
-//     }
-//    })
-// }
