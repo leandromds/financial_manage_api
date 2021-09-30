@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), even though this is not a library, so there will eventually be breaking changes in minor version updates, managed by the team.
 
+## [0.4.0] - 2021-09-30
+- Implement CI/CD in github and heroku
+## [0.3.1] - 2021-09-30
+### Added
+- Add new field called "expirationDate" to expensive schema
 ## [0.3.0] - 2021-08-12
 ### Added
 - Create a router and service to reset password
