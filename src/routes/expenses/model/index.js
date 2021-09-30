@@ -23,6 +23,9 @@ const ExpensesSchema = new mongoose.Schema(
       type: Date,
       default: Date.now
     },
+    expirationDate: {
+      type: String,
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: 'UserModel',
