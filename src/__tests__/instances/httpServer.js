@@ -1,6 +1,6 @@
 require('dotenv').config()
-const pkg = require('../../package.json')
-const createServer = require('../config/server')
+const pkg = require('../../../package.json')
+const createServer = require('../../../src/services/server')
 
 const configServer = {
   port: process.env.SERVER_PORT || 3003,

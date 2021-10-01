@@ -24,7 +24,7 @@ const ExpensesSchema = new mongoose.Schema(
       default: Date.now
     },
     expirationDate: {
-      type: String,
+      type: String
     },
     user: {
       type: Schema.Types.ObjectId,

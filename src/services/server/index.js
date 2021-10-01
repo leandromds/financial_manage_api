@@ -1,7 +1,6 @@
 const express = require('express')
 const Helpers = require('../../helpers')
 // const pinoHttp = require('pino-http')({ logger })
-const bodyParser = require('body-parser')
 const compress = require('compression')
 
 const home = require('../../routes/home')

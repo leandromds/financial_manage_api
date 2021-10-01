@@ -1,12 +1,8 @@
 const sendgrid = require('./mailSenders/sendgrid')
 const mailtrap = require('./mailSenders/mailtrap')
 
-const initialConfig = {
-  test: false
-}
-
 const mailer = (() => {
-  const sendMail = async (config) => { 
+  const sendMail = async config => {
     if (!config.test) {
       await sendgrid.send()
       return
@@ -15,7 +11,7 @@ const mailer = (() => {
   }
 
   return {
-    sendMail,
+    sendMail
   }
 })()
 

@@ -23,15 +23,24 @@ const createDatabase = (config = {}) => {
         useFindAndModify: false
       })
       .then(() =>
-        Helpers.triggerLoggerAndReturnResult(`> [DATABASE] the database ${name} starting on ${url}!`)
+        Helpers.triggerLoggerAndReturnResult(
+          `> [DATABASE] the database ${name} starting on ${url}!`
+        )
       )
-      .catch(error => Helpers.triggerLoggerAndReturnResult(`> [DATABASE] Failed error: ${error}!`, 'error'))
+      .catch(error =>
+        Helpers.triggerLoggerAndReturnResult(
+          `> [DATABASE] Failed error: ${error}!`,
+          'error'
+        )
+      )
   }
 
   const stop = () => {
     return new Promise(resolve => {
       if (mongoose.connection.readyState === 1) {
-        Helpers.triggerLoggerAndReturnResult(`> [DATABASE] Database ${name} on ${url} was stoped with success`)
+        Helpers.triggerLoggerAndReturnResult(
+          `> [DATABASE] Database ${name} on ${url} was stoped with success`
+        )
         mongoose.connection.close(resolve)
       }
     })

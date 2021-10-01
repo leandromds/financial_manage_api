@@ -23,11 +23,11 @@ const userSchema = new mongoose.Schema(
     },
     passwordResetToken: {
       type: String,
-      select: false,
+      select: false
     },
     passwordResetExpires: {
       type: Date,
-      select:false
+      select: false
     }
   },
   {
