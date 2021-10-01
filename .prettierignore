@@ -5,6 +5,8 @@ jest.config
 .github
 build
 coverage
+.eslintrc.js
 
 # Ignore files
 *.md
+*.hbs
