@@ -7,8 +7,6 @@ jobs:
       matrix:
         node: ["14", "16"]
     name: Node ${{ matrix.node }}
-    env:
-      JWT_SECRET: ${{ secrets.JWT_SECRET }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup node
