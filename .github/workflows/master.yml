@@ -1,4 +1,4 @@
-name: develop-workflow
+name: run-test
 on: [push]
 jobs:
   build:
@@ -13,8 +13,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - name: Install dependences
       - run: npm install -g npm@latest
-      - run: npm ci
-      - name: Runnig tests
+      - run: npm install
       - run: npm test
