@@ -1,28 +1,22 @@
-name: run-test
-
+name: develop-workflow
 on: [push]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
     strategy:
       matrix:
         node: ["14", "16"]
-
     name: Node ${{ matrix.node }}
+    env:
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
     steps:
       - uses: actions/checkout@v2
-
       - name: Setup node
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-          
-      - name: Run test
-        env:
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      - name: Install dependences
       - run: npm install -g npm@latest
       - run: npm ci
+      - name: Runnig tests
       - run: npm test
