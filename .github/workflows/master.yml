@@ -13,9 +13,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - run: echo "Issa $env.JWT_SECRET"
       - run: npm install -g npm@latest
       - run: npm ci
       - run: npm test
-    env:
-      JWT_SECRET: ${{ secrets.JWT_SECRET }}
