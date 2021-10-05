@@ -7,17 +7,14 @@ const core = createCore()
 const shutdown = async () => {
   Helpers.triggerLoggerAndReturnResult('Gracefully shutdown in progress')
   await core.stop()
-  process.exit(0)
+  process.exitCode = 0
 }
 
 const iniApp = async () => {
   try {
     await core.start()
   } catch (error) {
-    Helpers.triggerLoggerAndReturnResult(
-      error,
-      'error'
-    )
+    Helpers.triggerLoggerAndReturnResult(error, 'error')
   }
 }
 
@@ -32,14 +29,14 @@ process
       `uncaughtException caught the error: ${error}`,
       'error'
     )
-    throw error
+    throw new Error(error)
   })
   .on('unhandledRejection', (error, promise) => {
     Helpers.triggerLoggerAndReturnResult(
       `Unhandled Rejection at: Promise ${promise} reason: ${error}`,
       'error'
     )
-    throw error
+    throw new Error(error)
   })
   .on('exit', code => {
     Helpers.triggerLoggerAndReturnResult(`Node process exit with code: ${code}`)

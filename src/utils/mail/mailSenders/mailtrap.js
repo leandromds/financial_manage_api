@@ -7,25 +7,25 @@ const options = {
   viewEngine: {
     partialsDir: path.resolve('./src/resources/mail/partials'),
     layoutsDir: path.resolve('./src/resources/mail/'),
-    defaultLayout: false,
+    defaultLayout: false
   },
   viewPath: path.resolve('./src/resources/mail/'),
   extName: '.hbs'
 }
 
-const mailtrap =(() => {
+const mailtrap = (() => {
   const transporter = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
+    host: 'smtp.mailtrap.io',
     port: 2525,
     auth: {
-      user: "90a4bff0192438",
-      pass: "32f8d2295ac011"
+      user: '90a4bff0192438',
+      pass: '32f8d2295ac011'
     }
   })
 
   transporter.use('compile', hbs(options))
 
-  const send = async (config) => {
+  const send = async config => {
     console.log('using mailtrap...')
     const { link, name } = config
     await transporter.sendMail({

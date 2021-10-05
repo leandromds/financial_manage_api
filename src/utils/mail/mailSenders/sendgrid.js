@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-use-before-define
 require('dotenv').config()
 const sgMail = require('@sendgrid/mail')
 
@@ -8,7 +9,7 @@ const sendgrid = (() => {
     from: 'test@example.com', // Change to your verified sender
     subject: 'Sending with SendGrid is Fun',
     text: 'and easy to do anywhere, even with Node.js',
-    html: '<strong>Email sent via sendGrid mailer</strong>',
+    html: '<strong>Email sent via sendGrid mailer</strong>'
   }
 
   const send = async () => {
@@ -24,7 +25,6 @@ const sendgrid = (() => {
   return {
     send
   }
-
 })()
 
 module.exports = sendgrid

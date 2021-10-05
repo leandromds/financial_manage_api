@@ -28,7 +28,9 @@ const createCore = () => {
       Helpers.triggerLoggerAndReturnResult('> [CORE] Starting all services')
       await server.start()
       await database.start()
-      Helpers.triggerLoggerAndReturnResult('> [CORE] Starting done! System running!')
+      Helpers.triggerLoggerAndReturnResult(
+        '> [CORE] Starting done! System running!'
+      )
     } catch (error) {
       Helpers.triggerLoggerAndReturnResult(
         `> [CORE] An error occurred during system initialization\n reason: ${error}`,
