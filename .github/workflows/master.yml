@@ -16,3 +16,33 @@ jobs:
       - run: npm install -g npm@latest
       - run: npm ci
       - run: npm run lint
+
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment:
+      name: DEV
+      url: 'leandromsilva.com.br'
+    needs: build
+    steps:
+      - name: run a dev script
+      - run: echo deploy-dev
+
+  deploy-hmg:
+    runs-on: ubuntu-latest
+    environment:
+      name: HMG
+      url: 'leandromsilva.com.br'
+    needs: deploy-dev
+    steps:
+      - name: run a hmg script
+      - run: echo deploy-hmg
+
+  deploy-prd:
+    runs-on: ubuntu-latest
+    environment:
+      name: PRD
+      url: 'leandromsilva.com.br'
+    needs: deploy-hmg
+    steps:
+      - name: run a prd script
+      - run: echo deploy-prd
