@@ -24,4 +24,5 @@ jobs:
       url: 'leandromsilva.com.br'
     needs: build
     steps:
+      - name: Deploy in DEV
       - run: echo deploy-dev
