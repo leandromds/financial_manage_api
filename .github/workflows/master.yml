@@ -1,4 +1,4 @@
-name: run-test
+name: test and deployment workflow
 on: [push]
 jobs:
   build:
