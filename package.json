@@ -1,6 +1,6 @@
 {
   "name": "financial_manager",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "",
   "main": "index.js",
   "type": "commonjs",
@@ -12,7 +12,8 @@
     "jest": "jest --ci --runInBand --config=./jest.config.js",
     "format": "prettier-standard --format",
     "test": "npm run lint && npm run jest",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "",
