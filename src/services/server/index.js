@@ -9,7 +9,7 @@ const expenses = require('../../routes/expenses')
 const revenues = require('../../routes/revenues')
 
 const defaultConfig = {
-  port: 5001,
+  port: 3003,
   endPointVersion: '/v1/',
   version: '0.0.1'
 }
@@ -49,6 +49,7 @@ const CreateServer = (config = {}) => {
   }
 
   const start = () => {
+    console.log('startando o projeto!')
     return new Promise((resolve, reject) => {
       try {
         defineRoutes()
