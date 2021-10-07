@@ -7,7 +7,7 @@ const createDatabase = require('../database')
 
 const configDefault = {
   server: {
-    port: process.env.SERVER_PORT,
+    port: process.env.PORT,
     endPointVersion: process.env.ENDPOINT_VERSION,
     version: pkg.version
   },

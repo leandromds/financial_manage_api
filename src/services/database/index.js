@@ -8,7 +8,7 @@ const defaultConfig = {
   password: 'hyl2Q4kBFE9uldAS'
 }
 
-const environment = process.env.ENV
+const environment = process.env.NODE_ENV
 
 const createDatabase = (config = {}) => {
   const name = config.name || defaultConfig.name
@@ -16,7 +16,7 @@ const createDatabase = (config = {}) => {
   const user = config.user || defaultConfig.user
   const password = config.password || defaultConfig.password
 
-  const start = async server => {
+  const start = async () => {
     if (environment === 'production' || environment === 'homologation') {
       await mongoose
         .connect(
