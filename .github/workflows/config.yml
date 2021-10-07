@@ -1,5 +1,6 @@
 name: test and deployment workflow
 on: [push]
+
 jobs:
   build:
     runs-on: ubuntu-latest
