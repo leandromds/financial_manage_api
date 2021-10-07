@@ -17,25 +17,25 @@ const createDatabase = (config = {}) => {
   const password = config.password || defaultConfig.password
 
   const start = async (server) => {
-    if(environment === 'production' ||environment === 'homologation' ) {
+    if (environment === 'production' || environment === 'homologation') {
       await mongoose
-      .connect(`mongodb+srv://${user}:${password}@dev.sbdid.mongodb.net/${name}?retryWrites=true&w=majority`, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-        useFindAndModify: false
-      })
-      .then(() =>
-        Helpers.triggerLoggerAndReturnResult(
-          `> [DATABASE] the database ${name} starting on ${url} in ${environment} mode!`
+        .connect(`mongodb+srv://${user}:${password}@dev.sbdid.mongodb.net/${name}?retryWrites=true&w=majority`, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+          useCreateIndex: true,
+          useFindAndModify: false
+        })
+        .then(() =>
+          Helpers.triggerLoggerAndReturnResult(
+            `> [DATABASE] the database ${name} starting on ${url} in ${environment} mode!`
+          )
         )
-      )
-      .catch(error => 
-        Helpers.triggerLoggerAndReturnResult(
-          `> [DATABASE] Failed error: ${error}!`,
-          'error'
+        .catch(error =>
+          Helpers.triggerLoggerAndReturnResult(
+            `> [DATABASE] Failed error: ${error}!`,
+            'error'
+          )
         )
-      )
       return
     }
 
