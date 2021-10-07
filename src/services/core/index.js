@@ -13,7 +13,7 @@ const configDefault = {
   },
   database: {
     name: process.env.DB_NAME,
-    url: process.env.DB_URL,
+    url: process.env.DB_URL_DEV,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD
   }
