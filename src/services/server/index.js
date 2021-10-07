@@ -9,7 +9,7 @@ const expenses = require('../../routes/expenses')
 const revenues = require('../../routes/revenues')
 
 const defaultConfig = {
-  port: 3003,
+  port: 5001,
   endPointVersion: '/v1/',
   version: '0.0.1'
 }
