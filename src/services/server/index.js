@@ -48,7 +48,6 @@ const CreateServer = (config = {}) => {
   }
 
   const start = () => {
-    console.log('startando o projeto!')
     return new Promise((resolve, reject) => {
       try {
         defineRoutes()

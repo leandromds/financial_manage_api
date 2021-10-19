@@ -4,6 +4,10 @@ const pino = require('pino')({
     colorize: true
   }
 })
+const chalk = require('chalk')
+const { pid } = require('process')
+const os = require('os')
+const hostname = os.hostname()
 
 const Helpers = (() => {
   const triggerLoggerAndReturnResult = (data, typeOfLog = 'info') => {
@@ -12,8 +16,16 @@ const Helpers = (() => {
     return data
   }
 
+  const newLogger = (data, typeOfLog = 'info') => {
+    if (typeOfLog === 'info') console.log(
+      `${chalk.greenBright('INFO')} (${pid} on ${hostname}) ${chalk.cyan(data)}`)
+    if (typeOfLog === 'error') console.error(`${chalk.redBright('INFO')} ${new Error(data)}`)
+    return data
+  }
+
   return {
-    triggerLoggerAndReturnResult
+    triggerLoggerAndReturnResult,
+    newLogger
   }
 })()
 

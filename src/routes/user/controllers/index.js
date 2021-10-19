@@ -50,7 +50,7 @@ const UserController = (() => {
       const result = await UserServices.me(req.auth)
       res.status(200).send(result)
     } catch (error) {
-      Helpers.triggerLoggerAndReturnResult(
+      Helpers.newLogger(
         {
           status: false,
           error: error.message
