@@ -24,7 +24,6 @@ const CreateServer = (config = {}) => {
   let serverInstance
 
   const defineConfig = () => {
-    // app.use(pinoHttp)
     app.use(express.json())
     app.use(endPointVersion, router)
     app.use(compress())
