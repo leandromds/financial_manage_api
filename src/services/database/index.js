@@ -17,7 +17,6 @@ const createDatabase = (config = {}) => {
   const password = config.password || defaultConfig.password
 
   const start = async () => {
-    console.log('environment', environment)
     if (environment === 'production' || environment === 'homologation') {
       await mongoose
         .connect(
