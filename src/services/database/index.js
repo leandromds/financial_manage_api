@@ -18,6 +18,7 @@ const createDatabase = (config = {}) => {
 
   const start = async () => {
     if (environment === 'production' || environment === 'homologation') {
+      console.log(`mongodb+srv://${user}:${password}@dev.sbdid.mongodb.net/${name}?retryWrites=true&w=majority`)
       await mongoose
         .connect(
           `mongodb+srv://${user}:${password}@dev.sbdid.mongodb.net/${name}?retryWrites=true&w=majority`,
