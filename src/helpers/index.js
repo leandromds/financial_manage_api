@@ -1,9 +1,4 @@
-const pino = require('pino')({
-  prettyPrint: {
-    levelFirst: true,
-    colorize: true
-  }
-})
+const pino = require('pino')()
 const chalk = require('chalk')
 const { pid } = require('process')
 const os = require('os')
