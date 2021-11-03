@@ -64,7 +64,7 @@ const CreateServer = (config = {}) => {
         serverInstance = app.listen(port, () => {
           Helpers.triggerLoggerAndReturnResult(
             `> [SERVER] Server started on ${port}, api version: ${version} endpoint version: ${endPointVersion} 
-            ${QUOTAGUARDSTATIC_URL && QUOTAGUARDSTATIC_URL}`
+            ${url && url}`
           )
           return resolve(app)
         })

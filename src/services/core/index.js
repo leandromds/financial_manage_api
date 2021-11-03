@@ -36,6 +36,7 @@ const createCore = () => {
     console.log(chalk.cyan('DB_USER:'), process.env.DB_USER)
     console.log(chalk.cyan('DB_PASSWORD:'), process.env.DB_PASSWORD)
     console.log(chalk.greenBright('========================================='))
+    
     try {
       Helpers.triggerLoggerAndReturnResult('> [CORE] Starting all services')
       await server.start()
