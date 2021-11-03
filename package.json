@@ -1,6 +1,6 @@
 {
   "name": "financial_manager",
-  "version": "0.3.1",
+  "version": "0.3.2-rc-v1",
   "description": "",
   "main": "index.js",
   "type": "commonjs",
@@ -12,8 +12,8 @@
     "jest": "jest --ci --runInBand --config=./jest.config.js",
     "format": "prettier-standard --format",
     "test": "npm run lint && npm run jest",
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "dev": "nodemon src/index.js | pino-pretty",
+    "start": "node src/index.js | pino-pretty"
   },
   "keywords": [],
   "author": "",
@@ -21,13 +21,11 @@
   "dependencies": {
     "@sendgrid/mail": "^7.4.6",
     "basetag": "^1.1.0",
-    "body-parser": "^1.19.0",
     "calk": "^0.0.1-security",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "http-proxy-middleware": "^2.0.1",
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
     "log-symbols": "^5.0.0",

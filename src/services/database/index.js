@@ -3,18 +3,29 @@ const Helpers = require('../../helpers')
 
 const defaultConfig = {
   name: 'PFM_DB',
-  url: '//localhost:27017'
+  url: '//localhost:27017',
+  user: '',
+  password: ''
 }
 
 const environment = process.env.NODE_ENV
+let urlDB = ''
 
 const createDatabase = (config = {}) => {
   const name = config.name || defaultConfig.name
   const url = config.url || defaultConfig.url
+  const user = config.user || defaultConfig.user
+  const password = config.password || defaultConfig.password
 
   const start = async () => {
+    if(environment === 'development') {
+      urlDB = `${url}/${name}`
+    } else {
+      urlDB = `mongodb+srv://${user}:${password}@dev.sbdid.mongodb.net/PFM_DB?retryWrites=true&w=majority`
+    }
+    
     await mongoose
-      .connect(url, {
+      .connect(urlDB, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,

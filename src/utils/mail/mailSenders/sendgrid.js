@@ -13,7 +13,6 @@ const sendgrid = (() => {
   }
 
   const send = async () => {
-    console.log('using sendgrid...')
     try {
       await sgMail.send(msg)
       return 'email sent'
