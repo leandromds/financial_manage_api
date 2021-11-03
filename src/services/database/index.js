@@ -3,9 +3,7 @@ const Helpers = require('../../helpers')
 
 const defaultConfig = {
   name: 'appDB',
-  url: '//localhost:27017',
-  user: 'leandromds',
-  password: 'hyl2Q4kBFE9uldAS'
+  url: '//localhost:27017'
 }
 
 const environment = process.env.NODE_ENV

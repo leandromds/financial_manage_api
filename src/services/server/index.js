@@ -1,6 +1,7 @@
 const express = require('express')
 const Helpers = require('../../helpers')
 const compress = require('compression')
+const cors = require('cors')
 
 const home = require('../../routes/home')
 const user = require('../../routes/user')
@@ -24,9 +25,15 @@ const CreateServer = (config = {}) => {
   let serverInstance
 
   const defineConfig = () => {
+    app.use(cors())
+    app.use(express.urlencoded({ extended: true }))
     app.use(express.json())
-    app.use(endPointVersion, router)
     app.use(compress())
+    if(process.env.NODE_ENV !== 'development') {
+      app.use(endPointVersion, router)
+    } else {
+      app.use(`${QUOTAGUARDSTATIC_URL}${endPointVersion}`, router)
+    }
   }
 
   const defineRoutes = () => {
@@ -54,7 +61,8 @@ const CreateServer = (config = {}) => {
 
         serverInstance = app.listen(port, () => {
           Helpers.triggerLoggerAndReturnResult(
-            `> [SERVER] Server started on ${port}, api version: ${version} endpoint version: ${endPointVersion}`
+            `> [SERVER] Server started on ${port}, api version: ${version} endpoint version: ${endPointVersion} 
+            ${QUOTAGUARDSTATIC_URL && QUOTAGUARDSTATIC_URL}`
           )
           return resolve(app)
         })
