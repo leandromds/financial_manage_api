@@ -3,17 +3,19 @@ const Helpers = require('../../helpers')
 
 const defaultConfig = {
   name: 'PFM_DB',
-  url: '//localhost:27017'
+  url: '//localhost:27017',
+  user: '',
+  password: ''
 }
 
 const environment = process.env.NODE_ENV
-const user = process.env.DB_USER
-const password = process.env.DB_PASSWORD
 let urlDB = ''
 
 const createDatabase = (config = {}) => {
   const name = config.name || defaultConfig.name
   const url = config.url || defaultConfig.url
+  const user = config.user || defaultConfig.user
+  const password = config.password || defaultConfig.password
 
   const start = async () => {
     if(environment === 'development') {

@@ -4,7 +4,7 @@ const pkg = require('../../../package.json')
 const Helpers = require('../../helpers')
 const createServer = require('../server')
 const createDatabase = require('../database')
-const chalk = require('chalk')
+const environment = process.env.NODE_ENV
 
 const configDefault = {
   server: {
@@ -12,9 +12,19 @@ const configDefault = {
     endPointVersion: process.env.ENDPOINT_VERSION,
     version: pkg.version
   },
-  database: {
+  database: {}
+}
+
+if(environment === 'development') {
+  configDefault.database = {
     name: process.env.DB_NAME,
-    url: process.env.DB_URL,
+    url: process.env.DB_URL
+  }
+} else {
+  configDefault.database = {
+    name: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
   }
 }
 
