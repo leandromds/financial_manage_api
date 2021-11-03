@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Helpers = require('../../helpers')
 
 const defaultConfig = {
-  name: 'appDB',
+  name: 'PFM_DB',
   url: '//localhost:27017'
 }
 
@@ -11,38 +11,10 @@ const environment = process.env.NODE_ENV
 const createDatabase = (config = {}) => {
   const name = config.name || defaultConfig.name
   const url = config.url || defaultConfig.url
-  const user = config.user || defaultConfig.user
-  const password = config.password || defaultConfig.password
 
   const start = async () => {
-    if (environment === 'production' || environment === 'homologation') {
-      console.log(`mongodb+srv://${user}:${password}@dev.sbdid.mongodb.net/${name}?retryWrites=true&w=majority`)
-      await mongoose
-        .connect(
-          `mongodb+srv://${user}:${password}@dev.sbdid.mongodb.net/${name}?retryWrites=true&w=majority`,
-          {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
-            useFindAndModify: false
-          }
-        )
-        .then(() =>
-          Helpers.triggerLoggerAndReturnResult(
-            `> [DATABASE] the database ${name} starting on ${url} in ${environment} mode!`
-          )
-        )
-        .catch(error =>
-          Helpers.triggerLoggerAndReturnResult(
-            `> [DATABASE] Failed error: ${error}!`,
-            'error'
-          )
-        )
-      return
-    }
-
     await mongoose
-      .connect(`mongodb:${url}/${name}`, {
+      .connect(url, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,

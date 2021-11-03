@@ -10,7 +10,7 @@ const revenues = require('../../routes/revenues')
 
 const defaultConfig = {
   port: 3003,
-  url: process.env.BASE_URL_TEST,
+  url: process.env.BASE_URL,
   endPointVersion: '/v1/',
   version: '0.0.1'
 }
@@ -19,7 +19,6 @@ const CreateServer = (config = {}) => {
   const app = express()
   const router = express.Router()
   const port = config.port || defaultConfig.port
-  const url = config.url || defaultConfig.url
   const endPointVersion =
     config.endPointVersion || defaultConfig.endPointVersion
   const version = config.version || defaultConfig.version
@@ -31,11 +30,7 @@ const CreateServer = (config = {}) => {
     app.use(express.urlencoded({ extended: true }))
     app.use(express.json())
     app.use(compress())
-    if(process.env.NODE_ENV !== 'development') {
-      app.use(endPointVersion, router)
-    } else {
-      app.use(`${url}${endPointVersion}`, router)
-    }
+    app.use(endPointVersion, router)
   }
 
   const defineRoutes = () => {
@@ -63,8 +58,7 @@ const CreateServer = (config = {}) => {
 
         serverInstance = app.listen(port, () => {
           Helpers.triggerLoggerAndReturnResult(
-            `> [SERVER] Server started on ${port}, api version: ${version} endpoint version: ${endPointVersion} 
-            ${url && url}`
+            `> [SERVER] Server started on ${port}, api version: ${version} endpoint version: ${endPointVersion}`
           )
           return resolve(app)
         })
