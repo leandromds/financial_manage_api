@@ -7,14 +7,23 @@ const defaultConfig = {
 }
 
 const environment = process.env.NODE_ENV
+const user = process.env.DB_USER
+const password = process.env.DB_PASSWORD
+let urlDB = ''
 
 const createDatabase = (config = {}) => {
   const name = config.name || defaultConfig.name
   const url = config.url || defaultConfig.url
 
   const start = async () => {
+    if(environment === 'development') {
+      urlDB = `${url}/${name}`
+    } else {
+      urlDB = `mongodb+srv://${user}:${password}@dev.sbdid.mongodb.net/PFM_DB?retryWrites=true&w=majority`
+    }
+    
     await mongoose
-      .connect(url, {
+      .connect(urlDB, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,

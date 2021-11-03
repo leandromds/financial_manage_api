@@ -1,6 +1,6 @@
 {
   "name": "financial_manager",
-  "version": "0.3.1",
+  "version": "0.3.2-rc-v1",
   "description": "",
   "main": "index.js",
   "type": "commonjs",
