@@ -19,7 +19,7 @@ const CreateServer = (config = {}) => {
   const app = express()
   const router = express.Router()
   const port = config.port || defaultConfig.port
-  const url = config.url || defaultConfig.url,
+  const url = config.url || defaultConfig.url
   const endPointVersion =
     config.endPointVersion || defaultConfig.endPointVersion
   const version = config.version || defaultConfig.version
