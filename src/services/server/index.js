@@ -10,6 +10,7 @@ const revenues = require('../../routes/revenues')
 
 const defaultConfig = {
   port: 3003,
+  url: process.env.BASE_URL_TEST,
   endPointVersion: '/v1/',
   version: '0.0.1'
 }
@@ -18,6 +19,7 @@ const CreateServer = (config = {}) => {
   const app = express()
   const router = express.Router()
   const port = config.port || defaultConfig.port
+  const url = config.url || defaultConfig.url,
   const endPointVersion =
     config.endPointVersion || defaultConfig.endPointVersion
   const version = config.version || defaultConfig.version
@@ -32,7 +34,7 @@ const CreateServer = (config = {}) => {
     if(process.env.NODE_ENV !== 'development') {
       app.use(endPointVersion, router)
     } else {
-      app.use(`${QUOTAGUARDSTATIC_URL}${endPointVersion}`, router)
+      app.use(`${url}${endPointVersion}`, router)
     }
   }
 

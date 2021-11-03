@@ -9,6 +9,7 @@ const chalk = require('chalk')
 const configDefault = {
   server: {
     port: process.env.PORT,
+    url: process.env.QUOTAGUARDSTATIC_URL,
     endPointVersion: process.env.ENDPOINT_VERSION,
     version: pkg.version
   },
