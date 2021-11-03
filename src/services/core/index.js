@@ -4,6 +4,7 @@ const pkg = require('../../../package.json')
 const Helpers = require('../../helpers')
 const createServer = require('../server')
 const createDatabase = require('../database')
+const chalk = require('chalk')
 
 const configDefault = {
   server: {
@@ -13,9 +14,7 @@ const configDefault = {
   },
   database: {
     name: process.env.DB_NAME,
-    url: process.env.DB_URL_DEV,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD
+    url: process.env.DB_URL,
   }
 }
 
@@ -24,6 +23,17 @@ const createCore = () => {
   const database = createDatabase(configDefault.database)
 
   const start = async () => {
+    console.log(chalk.greenBright('========================================='))
+    console.log(chalk.cyan('NODE_ENV:'), process.env.NODE_ENV)
+    console.log(chalk.cyan('PORT:'), process.env.PORT)
+    console.log(chalk.cyan('DB_NAME:'), process.env.DB_NAME)
+    console.log(chalk.cyan('QUOTAGUARDSTATIC_URL:'), process.env.QUOTAGUARDSTATIC_URL)
+    console.log(chalk.cyan('ENDPOINT_VERSION:'), process.env.ENDPOINT_VERSION)
+    console.log(chalk.cyan('DB_URL_DEV:'), process.env.DB_URL_DEV)
+    console.log(chalk.cyan('DB_USER:'), process.env.DB_USER)
+    console.log(chalk.cyan('DB_PASSWORD:'), process.env.DB_PASSWORD)
+    console.log(chalk.greenBright('========================================='))
+    
     try {
       Helpers.triggerLoggerAndReturnResult('> [CORE] Starting all services')
       await server.start()
