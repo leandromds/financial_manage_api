@@ -1,4 +1,4 @@
-const pino = require('pino')
+const pino = require('pino')()
 
 const Helpers = (() => {
   const triggerLoggerAndReturnResult = (data, typeOfLog = 'info') => {
