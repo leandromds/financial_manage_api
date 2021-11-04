@@ -12,8 +12,8 @@
     "jest": "jest --ci --runInBand --config=./jest.config.js",
     "format": "prettier-standard --format",
     "test": "npm run lint && npm run jest",
-    "dev": "nodemon src/index.js | pino-pretty",
-    "start": "node src/index.js | pino-pretty"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "",
