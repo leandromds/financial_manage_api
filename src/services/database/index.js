@@ -21,7 +21,7 @@ const createDatabase = (config = {}) => {
     if(environment === 'development') {
       urlDB = `${url}/${name}`
     } else {
-      urlDB = `mongodb+srv://${user}:${password}@dev.sbdid.mongodb.net/PFM_DB?retryWrites=true&w=majority`
+      urlDB = `mongodb+srv://${user}:${password}@dev.sbdid.mongodb.net/${name}?retryWrites=true&w=majority`
     }
     
     await mongoose
