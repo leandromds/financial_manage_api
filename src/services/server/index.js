@@ -1,12 +1,12 @@
 const express = require('express')
 const Helpers = require('../../helpers')
 const compress = require('compression')
-const cors = require('cors')
 
 const home = require('../../routes/home')
 const user = require('../../routes/user')
 const expenses = require('../../routes/expenses')
 const revenues = require('../../routes/revenues')
+const budget = require('../../routes/budget')
 
 const defaultConfig = {
   port: 3003,
@@ -26,7 +26,6 @@ const CreateServer = (config = {}) => {
   let serverInstance
 
   const defineConfig = () => {
-    app.use(cors())
     app.use(express.urlencoded({ extended: true }))
     app.use(express.json())
     app.use(compress())
@@ -38,6 +37,7 @@ const CreateServer = (config = {}) => {
     user.routes(router)
     expenses.routes(router)
     revenues.routes(router)
+    budget.routes(router)
   }
 
   const test = () => {

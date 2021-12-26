@@ -1,14 +1,25 @@
 const crypto = require('crypto')
 const Helpers = require('../../../helpers')
 const UserModel = require('../models/index')
+const BudgetService = require('../../budget/services')
 const mailer = require('../../../utils/mail')
 const { sign } = require('../../../utils/jwt')
+
+const defaultBudget = {
+  fixedCost: 50,
+  emergencyFund: 30,
+  investment: 10,
+  personalEnjoyment: 10
+}
 
 const UserServices = (() => {
   const register = async userData => {
     try {
       const dbRes = await UserModel.create(userData)
       const { password, ...user } = dbRes.toObject()
+      defaultBudget.user = user.id
+      const budget = await BudgetService.createBudget(defaultBudget)
+      user.budgetDefault = budget.budget
       const token = sign({ user: user.id })
 
       return Helpers.triggerLoggerAndReturnResult({

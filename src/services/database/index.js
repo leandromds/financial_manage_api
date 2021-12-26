@@ -23,7 +23,7 @@ const createDatabase = (config = {}) => {
     } else {
       urlDB = `mongodb+srv://${user}:${password}@dev.sbdid.mongodb.net/${name}?retryWrites=true&w=majority`
     }
-    
+
     await mongoose
       .connect(urlDB, {
         useNewUrlParser: true,

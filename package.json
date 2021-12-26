@@ -1,6 +1,6 @@
 {
   "name": "financial_manager",
-  "version": "0.3.2-rc-v1",
+  "version": "0.3.3-rc-v1",
   "description": "",
   "main": "index.js",
   "type": "commonjs",
@@ -33,7 +33,21 @@
     "nodemailer": "^6.6.3",
     "nodemailer-express-handlebars": "^4.0.0",
     "pino": "^6.7.0",
-    "pino-http": "^5.3.0"
+    "pino-http": "^5.3.0",
+    "prettier-standard": "^16.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "husky": "^5.0.4",
+    "jest": "^27.0.0",
+    "nodemon": "^2.0.7",
+    "pino-pretty": "^4.8.0",
+    "standard": "^6.0.4",
+    "supertest": "^6.0.1"
   },
   "devDependencies": {
     "eslint": "^7.18.0",
