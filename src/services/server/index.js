@@ -11,7 +11,7 @@ const revenues = require('../../routes/revenues')
 const budget = require('../../routes/budget')
 
 const defaultConfig = {
-  port: 3003,
+  port: 5003,
   endPointVersion: '/v1/',
   version: '0.0.1'
 }

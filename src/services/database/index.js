@@ -11,10 +11,14 @@ const defaultConfig = {
 const createDatabase = (config = {}) => {
   const name = config.name || defaultConfig.name
   const url = config.url || defaultConfig.url
-  // const user = config.user || defaultConfig.user
-  // const password = config.user || defaultConfig.user
 
   const start = async () => {
+    if (process.env.NODE_ENV === 'development') {
+      urlDB = `${url}/${name}`
+    } else {
+      urlDB = `mongodb+srv://${user}:${password}@dev.sbdid.mongodb.net/${name}?retryWrites=true&w=majority`
+    }
+
     await mongoose
       .connect(`mongodb:${url}/${name}`, {
         useNewUrlParser: true,

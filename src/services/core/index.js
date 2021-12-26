@@ -11,7 +11,16 @@ const configDefault = {
     endPointVersion: process.env.ENDPOINT_VERSION,
     version: pkg.version
   },
-  database: {
+  database: {}
+}
+
+if (process.env.NODE_ENV === 'development') {
+  configDefault.database = {
+    name: process.env.DB_NAME,
+    url: process.env.DB_URL
+  }
+} else {
+  configDefault.database = {
     name: process.env.DB_NAME,
     url: process.env.DB_URL,
     user: process.env.DB_USER,
