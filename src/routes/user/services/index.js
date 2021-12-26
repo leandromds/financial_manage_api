@@ -4,7 +4,6 @@ const UserModel = require('../models/index')
 const BudgetService = require('../../budget/services')
 const mailer = require('../../../utils/mail')
 const { sign } = require('../../../utils/jwt')
-const { date } = require('joi')
 
 const defaultBudget = {
   fixedCost: 50,
@@ -49,7 +48,7 @@ const UserServices = (() => {
 
       const [user] = await UserModel.find({ email, password })
 
-      if (!user) throw { message: 'User or email invalid.' }
+      if (!user) throw new Error({ message: 'User or email invalid.' })
 
       const token = sign({
         user: user.id
@@ -83,17 +82,19 @@ const UserServices = (() => {
   const forgotPassword = async userEmail => {
     try {
       const [, hash] = userEmail.split(' ')
-      const [email] = Buffer.from(hash, 'base64').toString().split(':')
+      const [email] = Buffer.from(hash, 'base64')
+        .toString()
+        .split(':')
       const user = await UserModel.findOne({ email })
 
-      if (!user) throw { message: 'Email not registered' }
+      if (!user) throw new Error({ message: 'Email not registered' })
 
       const token = crypto.randomBytes(32).toString('hex')
       const now = new Date()
       now.setHours(now.getHours() + 1)
 
       await UserModel.findByIdAndUpdate(user.id, {
-        '$set': {
+        $set: {
           passwordResetToken: token,
           passwordResetExpires: now
         }
@@ -102,7 +103,7 @@ const UserServices = (() => {
       await mailer.sendMail({
         name: user.userName,
         link: `/forgot-password/${user.id}/${token}`,
-        test: true,
+        test: true
       })
 
       return Helpers.triggerLoggerAndReturnResult({
@@ -125,15 +126,20 @@ const UserServices = (() => {
     try {
       const { userId, token, password } = userData
       const now = new Date()
-      const user = await UserModel.findById(userId)
-        .select('passwordResetToken passwordResetExpires')
+      const user = await UserModel.findById(userId).select(
+        'passwordResetToken passwordResetExpires'
+      )
 
-      if (!user) throw { message: 'Email not registered' }
+      if (!user) throw new Error({ message: 'Email not registered' })
 
-      if (token !== user.passwordResetToken) throw { message: 'Token invalid' }
+      if (token !== user.passwordResetToken) {
+        throw new Error({ message: 'Token invalid' })
+      }
 
-      if (now > user.passwordResetExpires) throw {
-        message: 'Token expired, generate new one'
+      if (now > user.passwordResetExpires) {
+        throw new Error({
+          message: 'Token expired, generate new one'
+        })
       }
 
       user.password = password
@@ -144,7 +150,6 @@ const UserServices = (() => {
         status: true,
         message: 'New password saved with success!'
       })
-
     } catch (error) {
       return Helpers.triggerLoggerAndReturnResult(
         {

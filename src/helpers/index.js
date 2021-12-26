@@ -1,9 +1,4 @@
-const pino = require('pino')({
-  prettyPrint: {
-    levelFirst: true,
-    colorize: true
-  }
-})
+const pino = require('pino')()
 
 const Helpers = (() => {
   const triggerLoggerAndReturnResult = (data, typeOfLog = 'info') => {

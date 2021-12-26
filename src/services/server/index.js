@@ -1,7 +1,5 @@
 const express = require('express')
 const Helpers = require('../../helpers')
-// const pinoHttp = require('pino-http')({ logger })
-const bodyParser = require('body-parser')
 const compress = require('compression')
 
 const home = require('../../routes/home')
@@ -11,7 +9,8 @@ const revenues = require('../../routes/revenues')
 const budget = require('../../routes/budget')
 
 const defaultConfig = {
-  port: 5003,
+  port: 3003,
+  url: process.env.BASE_URL,
   endPointVersion: '/v1/',
   version: '0.0.1'
 }
@@ -27,10 +26,10 @@ const CreateServer = (config = {}) => {
   let serverInstance
 
   const defineConfig = () => {
-    // app.use(pinoHttp)
+    app.use(express.urlencoded({ extended: true }))
     app.use(express.json())
-    app.use(endPointVersion, router)
     app.use(compress())
+    app.use(endPointVersion, router)
   }
 
   const defineRoutes = () => {

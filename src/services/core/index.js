@@ -4,17 +4,18 @@ const pkg = require('../../../package.json')
 const Helpers = require('../../helpers')
 const createServer = require('../server')
 const createDatabase = require('../database')
+const environment = process.env.NODE_ENV
 
 const configDefault = {
   server: {
-    port: process.env.SERVER_PORT,
+    port: process.env.PORT,
     endPointVersion: process.env.ENDPOINT_VERSION,
     version: pkg.version
   },
   database: {}
 }
 
-if (process.env.NODE_ENV === 'development') {
+if(environment === 'development') {
   configDefault.database = {
     name: process.env.DB_NAME,
     url: process.env.DB_URL
@@ -22,9 +23,8 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   configDefault.database = {
     name: process.env.DB_NAME,
-    url: process.env.DB_URL,
     user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD
+    password: process.env.DB_PASSWORD,
   }
 }
 
@@ -37,7 +37,9 @@ const createCore = () => {
       Helpers.triggerLoggerAndReturnResult('> [CORE] Starting all services')
       await server.start()
       await database.start()
-      Helpers.triggerLoggerAndReturnResult('> [CORE] Starting done! System running!')
+      Helpers.triggerLoggerAndReturnResult(
+        '> [CORE] Starting done! System running!'
+      )
     } catch (error) {
       Helpers.triggerLoggerAndReturnResult(
         `> [CORE] An error occurred during system initialization\n reason: ${error}`,
