@@ -1,17 +1,17 @@
-require('dotenv').config()
-const nodemailer = require('nodemailer')
-const path = require('path')
-const hbs = require('nodemailer-express-handlebars')
+require('dotenv').config();
+const nodemailer = require('nodemailer');
+const path = require('path');
+const hbs = require('nodemailer-express-handlebars');
 
 const options = {
   viewEngine: {
     partialsDir: path.resolve('./src/resources/mail/partials'),
     layoutsDir: path.resolve('./src/resources/mail/'),
-    defaultLayout: false
+    defaultLayout: false,
   },
   viewPath: path.resolve('./src/resources/mail/'),
-  extName: '.hbs'
-}
+  extName: '.hbs',
+};
 
 const mailtrap = (() => {
   const transporter = nodemailer.createTransport({
@@ -19,27 +19,26 @@ const mailtrap = (() => {
     port: 2525,
     auth: {
       user: '90a4bff0192438',
-      pass: '32f8d2295ac011'
-    }
-  })
+      pass: '32f8d2295ac011',
+    },
+  });
 
-  transporter.use('compile', hbs(options))
+  transporter.use('compile', hbs(options));
 
-  const send = async config => {
-    console.log('using mailtrap...')
-    const { link, name } = config
+  const send = async (config) => {
+    const { link, name } = config;
     await transporter.sendMail({
       from: 'Financial Manager <contact@financialmanager.com>',
       to: ['leandro.mds.21@gmail.com'],
       subject: 'Assunto do email',
       template: 'auth/forgot_password',
-      context: { link, name }
-    })
-  }
+      context: { link, name },
+    });
+  };
 
   return {
-    send
-  }
-})()
+    send,
+  };
+})();
 
-module.exports = mailtrap
+module.exports = mailtrap;

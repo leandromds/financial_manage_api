@@ -1,6 +1,6 @@
 {
   "name": "financial_manager",
-  "version": "0.3.2-rc-v1",
+  "version": "0.3.3-rc-v1",
   "description": "",
   "main": "index.js",
   "type": "commonjs",
@@ -8,9 +8,8 @@
     "node": ">=14.17.0"
   },
   "scripts": {
-    "lint": "prettier-standard --lint --check",
+    "lint": "eslint .",
     "jest": "jest --ci --runInBand --config=./jest.config.js",
-    "format": "prettier-standard --format",
     "test": "npm run lint && npm run jest",
     "dev": "nodemon src/index.js",
     "start": "node src/index.js"
@@ -36,17 +35,17 @@
     "pino-http": "^5.3.0"
   },
   "devDependencies": {
-    "eslint": "^7.18.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-prettier": "^4.2.1",
     "husky": "^5.0.4",
     "jest": "^27.0.0",
     "nodemon": "^2.0.7",
     "pino-pretty": "^4.8.0",
-    "prettier-standard": "^13.0.6",
-    "standard": "^6.0.4",
+    "prettier": "^2.8.7",
     "supertest": "^6.0.1"
   },
   "husky": {

@@ -1,43 +1,45 @@
-require('dotenv').config()
-const Helpers = require('./helpers')
-const createCore = require('./services/core')
+require('dotenv').config();
+const Helpers = require('./helpers');
+const createCore = require('./services/core');
 
-const core = createCore()
+const core = createCore();
 
 const shutdown = async () => {
-  Helpers.triggerLoggerAndReturnResult('Gracefully shutdown in progress')
-  await core.stop()
-  process.exitCode = 0
-}
+  Helpers.triggerLoggerAndReturnResult('Gracefully shutdown in progress');
+  await core.stop();
+  process.exitCode = 0;
+};
 
 const iniApp = async () => {
   try {
-    await core.start()
+    await core.start();
   } catch (error) {
-    Helpers.triggerLoggerAndReturnResult(error, 'error')
+    Helpers.triggerLoggerAndReturnResult(error, 'error');
   }
-}
+};
 
-iniApp()
+iniApp();
 
 process
   .on('SIGTERM', shutdown)
   .on('SIGINT', shutdown)
   .on('SIGHUP', shutdown)
-  .on('uncaughtException', error => {
+  .on('uncaughtException', (error) => {
     Helpers.triggerLoggerAndReturnResult(
       `uncaughtException caught the error: ${error}`,
       'error'
-    )
-    throw new Error(error)
+    );
+    throw new Error(error);
   })
   .on('unhandledRejection', (error, promise) => {
     Helpers.triggerLoggerAndReturnResult(
       `Unhandled Rejection at: Promise ${promise} reason: ${error}`,
       'error'
-    )
-    throw new Error(error)
+    );
+    throw new Error(error);
   })
-  .on('exit', code => {
-    Helpers.triggerLoggerAndReturnResult(`Node process exit with code: ${code}`)
-  })
+  .on('exit', (code) => {
+    Helpers.triggerLoggerAndReturnResult(
+      `Node process exit with code: ${code}`
+    );
+  });

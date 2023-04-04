@@ -1,13 +1,13 @@
-const pkg = require('../../../package.json')
+const pkg = require('../../../package.json');
 
-const routes = router => {
+const routes = (router) => {
   router.get('/', (req, res) => {
     res.status(200).send({
       status: true,
       message: 'Welcome to baseapi',
-      version: pkg.version
-    })
-  })
-}
+      version: pkg.version,
+    });
+  });
+};
 
-module.exports = { routes }
+module.exports = { routes };

@@ -1,36 +1,36 @@
-const mongoose = require('mongoose')
-const { Schema } = require('mongoose')
+const mongoose = require('mongoose');
+const { Schema } = require('mongoose');
 
 const RevenuesSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     Recurrence: {
       type: String,
-      required: true
+      required: true,
     },
     value: {
       type: String,
-      required: true
+      required: true,
     },
     date: {
       type: Date,
-      default: Date.now
+      default: Date.now,
     },
     user: {
       type: Schema.Types.ObjectId,
       ref: 'UserModel',
-      required: true
-    }
+      required: true,
+    },
   },
   {
     collection: 'Revenues',
     timestamps: true,
     toJSON: { virtuals: true, getters: true },
-    toObject: { virtuals: true, getters: true }
+    toObject: { virtuals: true, getters: true },
   }
-)
+);
 
-module.exports = mongoose.model('RevenuesModel', RevenuesSchema)
+module.exports = mongoose.model('RevenuesModel', RevenuesSchema);

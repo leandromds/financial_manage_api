@@ -1,43 +1,43 @@
-const mongoose = require('mongoose')
-const { Schema } = require('mongoose')
+const mongoose = require('mongoose');
+const { Schema } = require('mongoose');
 
 const ExpensesSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     category: {
       type: String,
-      required: true
+      required: true,
     },
     type: {
       type: String,
-      required: true
+      required: true,
     },
     value: {
       type: String,
-      required: true
+      required: true,
     },
     date: {
       type: Date,
-      default: Date.now
+      default: Date.now,
     },
     expirationDate: {
-      type: String
+      type: String,
     },
     user: {
       type: Schema.Types.ObjectId,
       ref: 'UserModel',
-      required: true
-    }
+      required: true,
+    },
   },
   {
     collection: 'Expenses',
     timestamps: true,
     toJSON: { virtuals: true, getters: true },
-    toObject: { virtuals: true, getters: true }
+    toObject: { virtuals: true, getters: true },
   }
-)
+);
 
-module.exports = mongoose.model('ExpensesModel', ExpensesSchema)
+module.exports = mongoose.model('ExpensesModel', ExpensesSchema);

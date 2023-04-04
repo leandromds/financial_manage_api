@@ -1,15 +1,15 @@
-const pino = require('pino')()
+const pino = require('pino')();
 
 const Helpers = (() => {
   const triggerLoggerAndReturnResult = (data, typeOfLog = 'info') => {
-    if (typeOfLog === 'info') pino.info(data)
-    if (typeOfLog === 'error') pino.error(data)
-    return data
-  }
+    if (typeOfLog === 'info') pino.info(data);
+    if (typeOfLog === 'error') pino.error(data);
+    return data;
+  };
 
   return {
-    triggerLoggerAndReturnResult
-  }
-})()
+    triggerLoggerAndReturnResult,
+  };
+})();
 
-module.exports = Helpers
+module.exports = Helpers;
